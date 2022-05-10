@@ -1,31 +1,42 @@
 import React from 'react';
-import './App.css';
 
+import './App.css';
+import Row from './Row';
+
+type clickEvent = React.MouseEvent<HTMLTableCellElement>;
+type handleClickType = (e: clickEvent)=> void 
+
+const HandleClickContext = React.createContext<handleClickType | undefined>(undefined);
+
+export const useHandleClick = (): handleClickType => {
+  const context: handleClickType | undefined = React.useContext(HandleClickContext);
+  if (context === undefined) {
+    throw new Error ("HANDLECLICK MUST BE USED INSIDE APP");
+  } else {
+    return context;    
+  }
+}
 function App() {
-  // const [isX, setIsX] = React.useState(false);
+  // const [isX, setIsX] = React.useState<boolean>(false);
+  const handleClick: handleClickType = (e) => {
+    console.log(e.currentTarget);
+  } 
+
+  const row = [];
+  for(let i:number = 0; i <= 3; i ++) {
+    row.push(<Row key={i} rowNo = {i} />)
+  }
   return (
-    <div className="App">
-      <h2>0's turn</h2>
-      <table>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <HandleClickContext.Provider value={ handleClick }>
+      <div className="App">
+        <h2>0's turn</h2>
+        <table>
+          <tbody>
+            { row }
+          </tbody>
+        </table>
+      </div>
+    </HandleClickContext.Provider>
   );
 }
 
