@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHandleClick } from './App';
+import { useHandleClick } from '../App';
 
 const Box: React.FC<{ rowNo: number, colNo: number }> = ({rowNo, colNo}) => {
   const handleClick = useHandleClick();

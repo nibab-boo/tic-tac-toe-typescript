@@ -1,8 +1,9 @@
 import React from 'react';
 
 import './App.css';
-import Row from './Row';
+import Row from './components/Row';
 
+// types
 type clickEvent = React.MouseEvent<HTMLTableCellElement>;
 type handleClickType = (e: clickEvent)=> void 
 
@@ -23,9 +24,21 @@ export const useHandleClick = (): handleClickType => {
 function App() {
   // const [isX, setIsX] = React.useState<boolean>(false);
   const handleClick: handleClickType = (e) => {
-    console.log(e.currentTarget);
+    console.log(e.currentTarget)
   } 
 
+
+
+
+
+
+
+
+
+
+
+
+  // Creating Rows
   const row:React.ReactElement[] = [];
   for(let i:number = 1; i <= 3; i ++) {
     row.push(<Row key={i} rowNo = {i} />)
