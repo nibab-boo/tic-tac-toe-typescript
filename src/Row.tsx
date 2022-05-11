@@ -1,13 +1,15 @@
 import React from 'react';
-import { useHandleClick } from './App';
-const Row = (props: { rowNo: number }) => {
-  const handleClick = useHandleClick();
-  const { rowNo } = props;
+import Box from './Box';
+const Row: React.FC<{rowNo: number}> = ({ rowNo }) => {
+
+  const boxes: React.ReactElement[] = [];
+  for (let j: number = 1; j <= 3; j++) {
+    boxes.push(<Box key={j} rowNo={rowNo} colNo={j} />);
+  }
+
   return (
     <tr>
-      <td onClick={ (e) => handleClick(e)} data-row={rowNo}></td>
-      <td onClick={ (e) => handleClick(e)} data-row={rowNo}></td>
-      <td onClick={ (e) => handleClick(e)} data-row={rowNo}></td>
+      {boxes}
     </tr>
   );
 };
