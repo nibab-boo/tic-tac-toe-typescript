@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from './Box';
+
 const Row: React.FC<{rowNo: number}> = ({ rowNo }) => {
 
   const boxes: React.ReactElement[] = [];
