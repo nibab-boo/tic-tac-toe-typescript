@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Row from './components/Row';
+import ActionCable from 'actioncable';
 
 // types
 type clickEvent = React.MouseEvent<HTMLTableCellElement>;
@@ -23,6 +24,12 @@ export const useHandleClick = (): handleClickType => {
 function App() {
   const [isX, setIsX] = React.useState<boolean>(false);
   
+  const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+  
+  cable.subscriptions.create(
+    { channel: 'GameroomChannel', id: 1 },
+    { received: (data: {[index: string]: number | string}): void => console.log(data) }
+  )
   function restartGame(tdes: NodeListOf<HTMLElement>) {
     tdes.forEach((td) => {
       td.dataset.turn = ""  
