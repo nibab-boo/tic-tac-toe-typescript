@@ -97,6 +97,15 @@ function App() {
     if (e.currentTarget.dataset.turn) return
     e.currentTarget.textContent = isX ? "X" : "O";
     e.currentTarget.dataset.turn = `${isX}`;
+    const formData = new FormData();
+    formData.append("chatroom_id", "1");
+    formData.append("move[user_name]", `${isX}`)
+    formData.append("move[row]", "2")
+    formData.append("move[col]", "3")
+    fetch("http://localhost:3000/gamerooms/1/moves", {
+      method: 'post',
+      body: formData
+    })
     gameCheck(e);
     setIsX(() => !isX);
   } 
