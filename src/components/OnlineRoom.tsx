@@ -1,30 +1,12 @@
 import React from 'react';
-import './App.css';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
-// import ActionCable from 'actioncable';
-// import Table from './components/Table'
-import OfflineRoom from './components/OfflineRoom'
-import OnlineRoom from './components/OnlineRoom'
-// types
-type clickEvent = React.MouseEvent<HTMLTableCellElement>;
-export type handleClickType = (e: clickEvent)=> void 
+import { useParams } from 'react-router-dom';
+import Table from './Table';
+import { handleClickType } from '../App';
 
+const OnlineRoom = () => {
+  const { id } = useParams();
 
-// Context Handler
-// const HandleClickContext = React.createContext<handleClickType | undefined>(undefined);
-
-// export const useHandleClick = (): handleClickType => {
-//   const context: handleClickType | undefined = React.useContext(HandleClickContext);
-//   if (context === undefined) {
-//     throw new Error ("HANDLECLICK MUST BE USED INSIDE APP");
-//   } else {
-//     return context;    
-//   }
-// }
-
-
-function App() {
-  // const [isX, setIsX] = React.useState<boolean>(false);
+    // const [isX, setIsX] = React.useState<boolean>(false);
   
   // const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
   
@@ -107,44 +89,35 @@ function App() {
   //   // Moves Over Check
   // }
 
-  // const handleClick: handleClickType = (e) => {
-  //   if (e.currentTarget.dataset.turn) return
-  //   e.currentTarget.textContent = isX ? "X" : "O";
-  //   // e.currentTarget.dataset.turn = `${isX}`;
-  //   const formData = new FormData();
-  //   formData.append("chatroom_id", "1");
-  //   formData.append("move[user_name]", `${isX}`)
-  //   formData.append("move[row]", `${e.currentTarget.dataset.row}`)
-  //   formData.append("move[col]", `${e.currentTarget.dataset.col}`)
-  //   fetch("http://localhost:3000/gamerooms/1/moves", {
-  //     method: 'post',
-  //     body: formData
-  //   })
-  //   setIsX(() => !isX);
-  // } 
+  const handleClick: handleClickType = (e) => {
+    if (e.currentTarget.dataset.turn) return
+    // e.currentTarget.textContent = isX ? "X" : "O";
+    // e.currentTarget.dataset.turn = `${isX}`;
+    const formData = new FormData();
+    formData.append("chatroom_id", `${id}`);
+    // formData.append("move[user_name]", `${isX}`)
+    formData.append("move[row]", `${e.currentTarget.dataset.row}`)
+    formData.append("move[col]", `${e.currentTarget.dataset.col}`)
+    console.log(Object.fromEntries(formData));
+    // fetch("http://localhost:3000/gamerooms/1/moves", {
+    //   method: 'post',
+    //   body: formData
+    // })
+    // setIsX(() => !isX);
+  } 
 
  
+
   return (
-    <Router>
-      {/* <HandleClickContext.Provider value={ handleClick }> */}
-        <div className="App">
-          {/* <button onClick={() => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
-          <h2><span>{isX ? "X" : "O"}</span>'s turn</h2> */}
-            <Routes>
-            <Route path="/tic-tac-toe-typescript" element={
-              <OfflineRoom />
-            }>
-            </Route>
-            <Route path="/tic-tac-toe-typescript/gameroom/:id" element={
-              <OnlineRoom />
-            }>
-            </Route>
-            </Routes>
-        </div>
-      {/* </HandleClickContext.Provider> */}
-    </Router>
+    <div>
+      <h1>{ id }</h1>
+      {
+        id &&
+        <Table handleClick={handleClick} />
+      
+      }
+    </div>
   );
-}
+};
 
-export default App;
-
+export default OnlineRoom;
