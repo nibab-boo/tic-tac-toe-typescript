@@ -100,12 +100,12 @@ const OfflineRoom = () => {
   
   const redirectToGameRoom = () => {
     console.log("join", value);
-    const redirect = `/tic-tac-toe-typescript/gameroom/${value}`
+    const redirect = `/tic-tac-toe-typescript/gameroom/${value}/guest`
     navigate(redirect);
   } 
   const createGameRoom = () => {
     console.log("create", value);
-    const redirect = `/tic-tac-toe-typescript/gameroom/${value}`
+    const redirect = `/tic-tac-toe-typescript/gameroom/${value}/admin`
     navigate(redirect);
   }
 
