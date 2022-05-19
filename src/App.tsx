@@ -1,4 +1,5 @@
 import React from 'react';
+import ActionCable from 'actioncable';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 // import ActionCable from 'actioncable';
@@ -9,23 +10,23 @@ import OnlineRoom from './components/OnlineRoom'
 type clickEvent = React.MouseEvent<HTMLTableCellElement>;
 export type handleClickType = (e: clickEvent)=> void 
 
-
 // Context Handler
 // const HandleClickContext = React.createContext<handleClickType | undefined>(undefined);
 
 // export const useHandleClick = (): handleClickType => {
-//   const context: handleClickType | undefined = React.useContext(HandleClickContext);
-//   if (context === undefined) {
-//     throw new Error ("HANDLECLICK MUST BE USED INSIDE APP");
-//   } else {
-//     return context;    
-//   }
-// }
-
-
-function App() {
-  // const [isX, setIsX] = React.useState<boolean>(false);
-  
+  //   const context: handleClickType | undefined = React.useContext(HandleClickContext);
+  //   if (context === undefined) {
+    //     throw new Error ("HANDLECLICK MUST BE USED INSIDE APP");
+    //   } else {
+      //     return context;    
+      //   }
+      // }
+      
+      
+      function App() {
+        // const [isX, setIsX] = React.useState<boolean>(false);
+        
+        const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
   // const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
   
   // cable.subscriptions.create(
@@ -135,8 +136,8 @@ function App() {
               <OfflineRoom />
             }>
             </Route>
-            <Route path="/tic-tac-toe-typescript/gameroom/:id" element={
-              <OnlineRoom />
+            <Route path="/tic-tac-toe-typescript/gameroom/:id/:status" element={
+              <OnlineRoom cable= {cable} />
             }>
             </Route>
             </Routes>
