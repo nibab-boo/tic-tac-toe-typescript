@@ -26,7 +26,7 @@ export type handleClickType = (e: clickEvent)=> void
       function App() {
         // const [isX, setIsX] = React.useState<boolean>(false);
         
-        const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+        const cable = ActionCable.createConsumer('wss://game-room-center.herokuapp.com/ ');
   // const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
   
   // cable.subscriptions.create(
