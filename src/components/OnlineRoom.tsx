@@ -95,7 +95,7 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
  
   const handleClick: handleClickType = (e) => {
     if (e.currentTarget.dataset.turn) return
-
+    console.log("Clicked");
     // setMyTurn(() => false);
     // e.currentTarget.textContent = isX ? "X" : "O";
     // e.currentTarget.dataset.turn = `${isX}`;
@@ -105,7 +105,7 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     formData.append("move[row]", `${e.currentTarget.dataset.row}`)
     formData.append("move[col]", `${e.currentTarget.dataset.col}`)
     // console.log(Object.fromEntries(formData));
-    fetch(`http://localhost:3000/gamerooms/${id}/moves`, {
+    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
       method: 'post',
       body: formData
     })
