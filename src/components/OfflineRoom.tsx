@@ -105,8 +105,21 @@ const OfflineRoom = () => {
   } 
   const createGameRoom = () => {
     console.log("create", value);
-    const redirect = `/tic-tac-toe-typescript/gameroom/${value}/admin`
-    navigate(redirect);
+    const formData = new FormData();
+    formData.append("gameroom[name]", value);
+    fetch("http://localhost:3000/gamerooms", {
+      method: 'post',
+      body: formData
+    }).then(response => response.json())
+    .then((data):void => {
+      console.log(data);
+      if (data.status === "created") {
+        const redirect = `/tic-tac-toe-typescript/gameroom/${data.gameroom_name}/admin`
+        navigate(redirect);
+      } else {
+        window.alert(data.error_msg);
+      }
+    })
   }
 
   return (
@@ -120,7 +133,7 @@ const OfflineRoom = () => {
             e.preventDefault();
             createGameRoom();
             }} />
-          <input type="button" value="Enter game room" onClick={(e)=> { 
+          <input type="button" value="Enter game room" onClick={(e):void=> { 
             e.preventDefault();
             redirectToGameRoom()
             }} />
