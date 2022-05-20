@@ -1,0 +1,8 @@
+.online-room .header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.online-room h1 {
+  margin-bottom: 30px;
+}

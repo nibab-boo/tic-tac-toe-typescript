@@ -106,32 +106,30 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     formData.append("move[user_name]", mySign)
     formData.append("move[row]", `${e.currentTarget.dataset.row}`)
     formData.append("move[col]", `${e.currentTarget.dataset.col}`)
+    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
     // fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
-    fetch(`http://localhost:3000/gamerooms/${id}/moves`, {
       method: 'post',
       body: formData
     })
   }
 
   const deleteRoom = ():void => {
-    console.log("success");
-    fetch(`http://localhost:3000/gamerooms/${id}`, {
+    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}`, {
       method: 'delete'
     })
   };
 
   const resetGameForBoth = ():void => {
-    fetch(`http://localhost:3000/gamerooms/${id}/reset`)
+    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/reset`)
   }
   return (
-    <div>
-      <h1>{ id }</h1>
-      <div className="d-flex w-100 justify-content-between">
-        <button onClick={() => deleteRoom()}>Destroy GameRoom</button>
-        <button onClick={() => resetGameForBoth()}>Restart</button>
+    <div className='online-room'>
+      <div className="header">
+      { status === "admin" && <button onClick={() => deleteRoom()}>Destroy GameRoom</button> }
+      <button onClick={() => resetGameForBoth()}>Restart</button>
       </div>
-      <h1>{ mySign }</h1>
-      <h1><strong>{ "Your Turn" || "Other's Turn"}</strong></h1>
+      { status === "admin" && <p>Hello gameroom creators, please delete the gameroom after playing.</p>}
+      <h1>{ id } ( You Sign: <strong>{ mySign }</strong> )</h1>
       {
         id &&
         <Table handleClick={handleClick} />

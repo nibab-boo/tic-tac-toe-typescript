@@ -1,3 +1,4 @@
+@import './components/OnlineRoom.css';
 .App {
   text-align: center;
   display: flex;
@@ -8,14 +9,17 @@
   background-color: #6fa5b1;
   position: relative;
 }
+
 .App button {
-  position: absolute;
-  top: 30px;
-  right: 30px;
   padding: 8px 16px;
   background: lightgrey;
   border: 0;
-  
+}
+
+.App .offline-room button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 .App h2 span{
   font-size: 5rem;
