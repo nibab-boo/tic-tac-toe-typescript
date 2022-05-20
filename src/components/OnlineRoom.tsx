@@ -106,21 +106,21 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     formData.append("move[user_name]", mySign)
     formData.append("move[row]", `${e.currentTarget.dataset.row}`)
     formData.append("move[col]", `${e.currentTarget.dataset.col}`)
-    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
-    // fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
+    fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
+    // fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
       method: 'post',
       body: formData
     })
   }
 
   const deleteRoom = ():void => {
-    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}`, {
+    fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}`, {
       method: 'delete'
     })
   };
 
   const resetGameForBoth = ():void => {
-    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/reset`)
+    fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}/reset`)
   }
   return (
     <div className='online-room'>
