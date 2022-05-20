@@ -8,6 +8,9 @@ const Header: React.FC<{ active: string}> = ({ active }) => {
   const goOnline = ():void => {
     navigate("/tic-tac-toe-typescript/rooms");
   }
+  const goOffline = ():void => {
+    navigate("/tic-tac-toe-typescript");
+  }
 
   return (
     <div className="header">
@@ -15,9 +18,9 @@ const Header: React.FC<{ active: string}> = ({ active }) => {
       <>
         <h3 className={ active === "offline" ? "active" : ""}>{active === "offline" ? "Offline Mode" : "Delete Room" }</h3>
         <h3 onClick={()=> goOnline()} className={ active === "online" ? "active" : ""}>Online Mode</h3>
-        <button className='reset' onClick={() => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
+        <button className='reset' onClick={():void => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
       </> : <>
-        <h5 className='reset' style={{marginLeft: "0"}}>Go back</h5>
+        <h5 onClick={():void => goOffline()} className='reset' style={{marginLeft: "0"}}>Go back</h5>
       </>
       }
     </div>
