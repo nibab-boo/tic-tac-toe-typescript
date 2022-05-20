@@ -100,8 +100,16 @@ const OfflineRoom = () => {
   
   const redirectToGameRoom = () => {
     console.log("join", value);
-    const redirect = `/tic-tac-toe-typescript/gameroom/${value}/guest`
-    navigate(redirect);
+    fetch(`http://localhost:3000/gamerooms/${value.trimEnd()}`)
+      .then((response):void => {
+        console.log(response);
+        if (response.statusText === 'Found') {
+          const redirect = `/tic-tac-toe-typescript/gameroom/${value.trimEnd()}/guest`
+          navigate(redirect);
+        } else {
+          window.alert(`Sorry, we were not able to find ${value.trimEnd()} gameroom. Please, check with your friend or you might want to create a new one.`)
+        }
+      })
   } 
   const createGameRoom = () => {
     console.log("create", value);
@@ -123,24 +131,22 @@ const OfflineRoom = () => {
   }
 
   return (
-    // <HandleClickContext.Provider value={ handleClick }>
-      <div>
-        <button onClick={() => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
-        <h2><span>{isX ? "X" : "O"}</span>'s turn</h2>
-        <form>
-          <input type={"text"} value={value} onChange={(e)=> setValue(e.target.value)}></input>
-          <input type="button" value="Create game room" onClick={(e)=> {
-            e.preventDefault();
-            createGameRoom();
-            }} />
-          <input type="button" value="Enter game room" onClick={(e):void=> { 
-            e.preventDefault();
-            redirectToGameRoom()
-            }} />
-        </form>
-        < Table handleClick={handleClick} />
-      </div>
-    // </HandleClickContext.Provider>
+    <div>
+      <button onClick={() => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
+      <h2><span>{isX ? "X" : "O"}</span>'s turn</h2>
+      <form>
+        <input type={"text"} value={value} onChange={(e)=> setValue(e.target.value)}></input>
+        <input type="button" value="Create game room" onClick={(e)=> {
+          e.preventDefault();
+          createGameRoom();
+          }} />
+        <input type="button" value="Enter game room" onClick={(e):void=> { 
+          e.preventDefault();
+          redirectToGameRoom()
+          }} />
+      </form>
+      < Table handleClick={handleClick} />
+    </div>
   );
 };
 
