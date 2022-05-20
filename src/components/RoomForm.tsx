@@ -43,12 +43,12 @@ const RoomForm = () => {
       <Header active="roomform" />
       <form>
         <input type={"text"} placeholder="Enter a gameroom" value={value} onChange={(e)=> setValue(e.target.value)}></input>
-        <div>
-          <input type="button" value="Create a gameroom" onClick={(e)=> {
+        <div style={{display: "flex", alignItems: "center"}}>
+          <input type="button" value="Create new gameroom" onClick={(e)=> {
             e.preventDefault();
             createGameRoom();
           }} />
-          <input type="button" value="Enter a gameroom" onClick={(e):void=> { 
+          <input type="button" value="Join a gameroom" onClick={(e):void=> { 
             e.preventDefault();
             redirectToGameRoom()
           }} />

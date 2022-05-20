@@ -1,4 +1,5 @@
 @import './components/OnlineRoom.css';
+@import './components/RoomForm.css';
 .App {
   box-sizing: border-box;
   text-align: center;
@@ -45,13 +46,6 @@
 
 .App .reset:hover {
   background-color: #32476f;
-}
-
-.App form {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 20px 0px;
-  flex-wrap: wrap;
 }
 
 .App h2 span{
