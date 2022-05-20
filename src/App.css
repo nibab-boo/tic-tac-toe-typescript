@@ -17,16 +17,16 @@
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  padding: 16px 24px;
+  padding: 8px 24px;
 }
 
-.App .header h2{
+.App .header h3{
   margin-right:16px;
   cursor: pointer;
   color: #1f2837;
 }
 
-.App .header h2.active{
+.App .header h3.active{
   text-decoration: underline;
   color: #32476f;
 }
