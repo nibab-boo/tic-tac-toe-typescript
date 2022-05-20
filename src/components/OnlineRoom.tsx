@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
 
-import { handleClickType } from '../App';
+import { handleClickType, restartGame } from '../App';
 
 const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
   const navigate = useNavigate();
@@ -24,6 +24,11 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
         navigate(redirect);
         cable.disconnect();
       }
+
+      if (data.status === "reset") {
+        restartGame(document.querySelectorAll<HTMLElement>("td"));
+      }
+
       const box = document.querySelector<HTMLElement>(`[data-row='${data.row}'][data-col='${data.col}']`)
       const turn = box?.dataset.turn
       if (box !== null && !turn) {
@@ -33,38 +38,27 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
       }
     }}
   )
-  function restartGame(tdes: NodeListOf<HTMLElement>) {
-    tdes.forEach((td) => {
-      td.dataset.turn = ""  
-      td.textContent = ""
-      td.style.background = "initial"
-    })
-  };
 
   const gameCheck = (data: {[index: string]: string}) => {
     const row = data.row;
     const col = data.col; 
     const winOrNot = (boxes: HTMLElement[]): void => {
-      if (boxes.length > 0 && ((boxes.every(td => td.dataset.turn === 'X')))) {
+      const checkX = (boxes.every(td => td.dataset.turn === 'X'));
+      const checkO = (boxes.every(td => td.dataset.turn === 'O'));
+      if (boxes.length > 0 && (checkX || checkO)) {
         boxes.forEach((td)=> {td.style.background="green"});
         const tdes = document.querySelectorAll<HTMLElement>('td');
         tdes.forEach(td => {
           if (!td.dataset.turn) td.dataset.turn = "over";
         })
         setTimeout( ()=> {
-          if (window.confirm("Would you like to start a new game?")) {
-            restartGame(tdes);
+          let winMessage = "Would you like to start a new game?";
+          if ((checkX && mySign === "X") || (checkO && mySign === "O")) {
+            winMessage = "You win. Keep it rolling.";
+          } else {
+            winMessage = "You Lose. Don't let you past get better of you? You got this.";
           }
-        }, 1000)
-      }
-      if (boxes.length > 0 && (boxes.every(td => td.dataset.turn === 'O'))) {
-        boxes.forEach((td)=> {td.style.background="green"});
-        const tdes = document.querySelectorAll<HTMLElement>('td');
-        tdes.forEach(td => {
-          if (!td.dataset.turn) td.dataset.turn = "over";
-        })
-        setTimeout( ()=> {
-          if (window.confirm("Would you like to start a new game?")) {
+          if (window.confirm(winMessage)) {
             restartGame(tdes);
           }
         }, 1000)
@@ -112,13 +106,11 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     formData.append("move[user_name]", mySign)
     formData.append("move[row]", `${e.currentTarget.dataset.row}`)
     formData.append("move[col]", `${e.currentTarget.dataset.col}`)
-    // console.log(Object.fromEntries(formData));
     // fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
     fetch(`http://localhost:3000/gamerooms/${id}/moves`, {
       method: 'post',
       body: formData
     })
-    // setIsX(() => !isX); 
   }
 
   const deleteRoom = ():void => {
@@ -128,17 +120,21 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     })
   };
 
-
+  const resetGameForBoth = ():void => {
+    fetch(`http://localhost:3000/gamerooms/${id}/reset`)
+  }
   return (
     <div>
       <h1>{ id }</h1>
-      <button onClick={() => deleteRoom()}>Destroy GameRoom</button>
+      <div className="d-flex w-100 justify-content-between">
+        <button onClick={() => deleteRoom()}>Destroy GameRoom</button>
+        <button onClick={() => resetGameForBoth()}>Restart</button>
+      </div>
       <h1>{ mySign }</h1>
       <h1><strong>{ "Your Turn" || "Other's Turn"}</strong></h1>
       {
         id &&
         <Table handleClick={handleClick} />
-      
       }
     </div>
   );
