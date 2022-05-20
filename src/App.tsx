@@ -20,8 +20,8 @@ export function restartGame(tdes: NodeListOf<HTMLElement>):void {
 
 function App() {
   
-  // const cable = ActionCable.createConsumer('wss://game-room-center.herokuapp.com/cable');
-  const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+  const cable = ActionCable.createConsumer('wss://game-room-center.herokuapp.com/cable');
+  // const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
   return (
     <Router>
