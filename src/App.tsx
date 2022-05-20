@@ -31,7 +31,7 @@ function App() {
               <OfflineRoom />
             }>
             </Route>
-            <Route path="/tic-tac-toe-typescript/rooms" element={
+            <Route path="/tic-tac-toe-typescript/gameroom" element={
               <RoomForm />
             }>
             </Route>

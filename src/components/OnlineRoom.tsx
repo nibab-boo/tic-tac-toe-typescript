@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
-
+import Header from './Header';
 import { handleClickType, restartGame } from '../App';
 
 const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
@@ -113,23 +113,16 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
     })
   }
 
-  const deleteRoom = ():void => {
-    fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}`, {
-      method: 'delete'
-    })
-  };
+
 
   const resetGameForBoth = ():void => {
     fetch(`https://game-room-center.herokuapp.com/gamerooms/${id}/reset`)
   }
   return (
     <div className='online-room'>
-      <div className="header">
-      { status === "admin" && <button onClick={() => deleteRoom()}>Destroy GameRoom</button> }
-      <button onClick={() => resetGameForBoth()}>Restart</button>
-      </div>
-      { status === "admin" && <p>Hello gameroom creators, please delete the gameroom after playing.</p>}
-      <h1>{ id } ( You Sign: <strong>{ mySign }</strong> )</h1>
+      <Header active="online" onReset={resetGameForBoth} />
+      <p>please delete the gameroom after playing.</p>
+      <h3>{ id } ( Your Sign: <strong>{ mySign }</strong> )</h3>
       {
         id &&
         <Table handleClick={handleClick} />
