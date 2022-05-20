@@ -1,16 +1,29 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
 
 import { handleClickType } from '../App';
 
 const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
+  const navigate = useNavigate();
   const {id, status} = useParams();
   const mySign = status === "admin" ? "X" : "O"
 
   cable.subscriptions.create(
     { channel: 'GameroomChannel', id: id },
-    { received: (data: {[index: string]: string}): void => {
+    { connected: () => {
+        console.log("connected")
+      },
+      disconnected: () => {
+        console.log("disconnected");
+      },
+      received: (data: {[index: string]: string}): void => {
+      if ( data.status === "destroy" ) {
+        window.alert("Gameroom destroyed by Creator. Redirecting to main room");
+        const redirect = '/tic-tac-toe-typescript';
+        navigate(redirect);
+        cable.disconnect();
+      }
       const box = document.querySelector<HTMLElement>(`[data-row='${data.row}'][data-col='${data.col}']`)
       const turn = box?.dataset.turn
       if (box !== null && !turn) {
@@ -45,7 +58,6 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
         }, 1000)
       }
       if (boxes.length > 0 && (boxes.every(td => td.dataset.turn === 'O'))) {
-        console.log("OOOOO")
         boxes.forEach((td)=> {td.style.background="green"});
         const tdes = document.querySelectorAll<HTMLElement>('td');
         tdes.forEach(td => {
@@ -95,27 +107,32 @@ const OnlineRoom: React.FC<{ cable: ActionCable.Cable }> = ({ cable }) => {
  
   const handleClick: handleClickType = (e) => {
     if (e.currentTarget.dataset.turn) return
-    console.log("Clicked");
-    // setMyTurn(() => false);
-    // e.currentTarget.textContent = isX ? "X" : "O";
-    // e.currentTarget.dataset.turn = `${isX}`;
     const formData = new FormData();
     formData.append("chatroom_id", `${id}`);
     formData.append("move[user_name]", mySign)
     formData.append("move[row]", `${e.currentTarget.dataset.row}`)
     formData.append("move[col]", `${e.currentTarget.dataset.col}`)
     // console.log(Object.fromEntries(formData));
-    fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
+    // fetch(`http://game-room-center.herokuapp.com/gamerooms/${id}/moves`, {
+    fetch(`http://localhost:3000/gamerooms/${id}/moves`, {
       method: 'post',
       body: formData
     })
     // setIsX(() => !isX); 
-  } 
+  }
+
+  const deleteRoom = ():void => {
+    console.log("success");
+    fetch(`http://localhost:3000/gamerooms/${id}`, {
+      method: 'delete'
+    })
+  };
 
 
   return (
     <div>
       <h1>{ id }</h1>
+      <button onClick={() => deleteRoom()}>Destroy GameRoom</button>
       <h1>{ mySign }</h1>
       <h1><strong>{ "Your Turn" || "Other's Turn"}</strong></h1>
       {
