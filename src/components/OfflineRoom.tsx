@@ -76,7 +76,7 @@ const OfflineRoom = () => {
   
   const redirectToGameRoom = () => {
     console.log("join", value);
-    fetch(`http://localhost:3000/gamerooms/${value.trimEnd()}`)
+    fetch(`http://game-room-center.herokuapp.com/gamerooms/${value.trimEnd()}`)
       .then((response):void => {
         console.log(response);
         if (response.statusText === 'Found') {
@@ -91,7 +91,7 @@ const OfflineRoom = () => {
     console.log("create", value);
     const formData = new FormData();
     formData.append("gameroom[name]", value);
-    fetch("http://localhost:3000/gamerooms", {
+    fetch("http://game-room-center.herokuapp.com/gamerooms", {
       method: 'post',
       body: formData
     }).then(response => response.json())
