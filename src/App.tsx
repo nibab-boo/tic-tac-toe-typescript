@@ -9,7 +9,15 @@ import OnlineRoom from './components/OnlineRoom'
 // types
 type clickEvent = React.MouseEvent<HTMLTableCellElement>;
 export type handleClickType = (e: clickEvent)=> void 
-      
+
+export function restartGame(tdes: NodeListOf<HTMLElement>):void {
+  tdes.forEach((td) => {
+    td.dataset.turn = ""  
+    td.textContent = ""
+    td.style.background = "initial"
+  })
+};
+
 function App() {
   
   // const cable = ActionCable.createConsumer('wss://game-room-center.herokuapp.com/cable');

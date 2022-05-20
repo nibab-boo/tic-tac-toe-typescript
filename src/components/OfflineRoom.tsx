@@ -1,37 +1,13 @@
 import React from 'react';
 import Table from './Table';
-// import ActionCable from 'actioncable';
-import { handleClickType } from './../App'
+import { handleClickType, restartGame } from './../App'
 import { useNavigate } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
 
-// type clickEvent = React.MouseEvent<HTMLTableCellElement>;
-
-// Context Handler
-// const HandleClickContext = React.createContext<handleClickType | undefined>(undefined);
-
-// export const useHandleClick = (): handleClickType => {
-//   const context: handleClickType | undefined = React.useContext(HandleClickContext);
-//   if (context === undefined) {
-//     throw new Error ("HANDLECLICK MUST BE USED INSIDE APP");
-//   } else {
-//     return context;    
-//   }
-// }
 
 const OfflineRoom = () => {
   const navigate = useNavigate();
   const [isX, setIsX] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("")
-  function restartGame(tdes: NodeListOf<HTMLElement>) {
-    tdes.forEach((td) => {
-      td.dataset.turn = ""  
-      td.textContent = ""
-      td.style.background = "initial"
-    })
-  };
-  
-
 
   const gameCheck: handleClickType = (e) => {
     const row: string = e.currentTarget.dataset.row as string;
