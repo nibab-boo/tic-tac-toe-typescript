@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tic-tac-toe-typescript/static/css/main.110c0bc6.css",
-    "main.js": "/tic-tac-toe-typescript/static/js/main.ff92dfe8.js",
+    "main.css": "/tic-tac-toe-typescript/static/css/main.64c1cbb8.css",
+    "main.js": "/tic-tac-toe-typescript/static/js/main.ff19bd3a.js",
     "static/js/787.ab9bb0e9.chunk.js": "/tic-tac-toe-typescript/static/js/787.ab9bb0e9.chunk.js",
     "index.html": "/tic-tac-toe-typescript/index.html",
-    "main.110c0bc6.css.map": "/tic-tac-toe-typescript/static/css/main.110c0bc6.css.map",
-    "main.ff92dfe8.js.map": "/tic-tac-toe-typescript/static/js/main.ff92dfe8.js.map",
+    "main.64c1cbb8.css.map": "/tic-tac-toe-typescript/static/css/main.64c1cbb8.css.map",
+    "main.ff19bd3a.js.map": "/tic-tac-toe-typescript/static/js/main.ff19bd3a.js.map",
     "787.ab9bb0e9.chunk.js.map": "/tic-tac-toe-typescript/static/js/787.ab9bb0e9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.110c0bc6.css",
-    "static/js/main.ff92dfe8.js"
+    "static/css/main.64c1cbb8.css",
+    "static/js/main.ff19bd3a.js"
   ]
 }
