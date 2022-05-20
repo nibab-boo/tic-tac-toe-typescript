@@ -1,19 +1,30 @@
 @import './components/OnlineRoom.css';
 .App {
+  box-sizing: border-box;
   text-align: center;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   flex-direction: column;
   height: 100vh;
   background-color: #6fa5b1;
   position: relative;
+  padding-top: 32px;
+  overflow: hidden;
 }
 
 .App button {
   padding: 8px 16px;
   background: lightgrey;
   border: 0;
+  cursor: pointer;
+}
+
+.App form {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0px;
+  flex-wrap: wrap;
 }
 
 .App .offline-room button {
@@ -29,6 +40,7 @@
   border-spacing: 0;
   transform: skewX(-2deg);
   height: 30vmax;
+  margin: 32px auto;
 }
 .App table td {
   width: 20vmin;

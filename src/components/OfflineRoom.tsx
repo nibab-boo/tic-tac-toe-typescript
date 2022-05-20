@@ -109,16 +109,18 @@ const OfflineRoom = () => {
   return (
     <div>
       <button onClick={() => restartGame(document.querySelectorAll<HTMLElement>("td"))}>Restart</button>
-      <form style={{ display: "flex", justifyContent: "space-evenly", margin: "20px 0"}}>
-        <input type={"text"} value={value} onChange={(e)=> setValue(e.target.value)}></input>
-        <input type="button" value="Create game room" onClick={(e)=> {
-          e.preventDefault();
-          createGameRoom();
+      <form>
+        <input type={"text"} placeholder="Enter a gameroom" value={value} onChange={(e)=> setValue(e.target.value)}></input>
+        <div>
+          <input type="button" value="Create a gameroom" onClick={(e)=> {
+            e.preventDefault();
+            createGameRoom();
           }} />
-        <input type="button" value="Enter game room" onClick={(e):void=> { 
-          e.preventDefault();
-          redirectToGameRoom()
+          <input type="button" value="Enter a gameroom" onClick={(e):void=> { 
+            e.preventDefault();
+            redirectToGameRoom()
           }} />
+        </div>
       </form>
       <h2><span>{isX ? "X" : "O"}</span>'s turn</h2>
       < Table handleClick={handleClick} />
