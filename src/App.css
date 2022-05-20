@@ -3,21 +3,48 @@
   box-sizing: border-box;
   text-align: center;
   display: flex;
-  /* justify-content: space-around; */
   align-items: center;
   flex-direction: column;
   height: 100vh;
   background-color: #6fa5b1;
   position: relative;
-  padding-top: 32px;
   overflow: hidden;
 }
 
-.App button {
-  padding: 8px 16px;
-  background: lightgrey;
-  border: 0;
+.App .header {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  padding: 16px 24px;
+}
+
+.App .header h2{
+  margin-right:16px;
   cursor: pointer;
+  color: #1f2837;
+}
+
+.App .header h2.active{
+  text-decoration: underline;
+  color: #32476f;
+}
+
+.App .reset {
+  padding: 8px 16px;
+  background: #4e6b9f;
+  border: 0;
+  border-radius: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  transition: background-color .4s ease-in-out;
+  margin-left: auto;
+}
+
+.App .reset:hover {
+  background-color: #32476f;
 }
 
 .App form {
@@ -27,11 +54,6 @@
   flex-wrap: wrap;
 }
 
-.App .offline-room button {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
 .App h2 span{
   font-size: 5rem;
   font-weight: 400;

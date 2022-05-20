@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 import OfflineRoom from './components/OfflineRoom'
 import OnlineRoom from './components/OnlineRoom'
-import RoomForm from './components/OnlineRoom'
+import RoomForm from './components/RoomForm'
 // types
 type clickEvent = React.MouseEvent<HTMLTableCellElement>;
 export type handleClickType = (e: clickEvent)=> void 
@@ -31,7 +31,7 @@ function App() {
               <OfflineRoom />
             }>
             </Route>
-            <Route path="/tic-tac-toe-typescript/Rooms" element={
+            <Route path="/tic-tac-toe-typescript/rooms" element={
               <RoomForm />
             }>
             </Route>
