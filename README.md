@@ -15,4 +15,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 #### Offline version of this project is independent.
 
-#### Online version of this project is dependent and linked with Rails backend API/server [gameroom](https://github.com/nibab-boo/gameroom)
+### Online version of this project is dependent and linked with Rails backend API/server [gameroom](https://github.com/nibab-boo/gameroom)
+Gameroom and tic-tac-toe are linked by the power of actioncable/websocket.
