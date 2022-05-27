@@ -13,6 +13,6 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Offline version of this project is independent.
+#### Offline version of this project is independent.
 
-## Online version of this project is dependent and linked with Rails backend API/server [gameroom](https://github.com/nibab-boo/gameroom)
+#### Online version of this project is dependent and linked with Rails backend API/server [gameroom](https://github.com/nibab-boo/gameroom)
